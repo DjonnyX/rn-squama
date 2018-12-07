@@ -34,7 +34,7 @@
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.4",
     "react-native-svg": "^8.0.8",
-    "react-native-svg-icon": "^0.8.1",
+    "react-native-svg-icon": "^0.8.1"
   },
   "repository": {
     "type": "git",
