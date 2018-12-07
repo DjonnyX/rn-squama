@@ -1,0 +1,51 @@
+/**
+ * Алиас стилей
+ * @author Evgeny Grebennikov
+ */
+export var ButtonStateThemeAlias;
+(function (ButtonStateThemeAlias) {
+    ButtonStateThemeAlias["PRIMARY_NORMAL"] = "btn-state-primary-normal";
+    ButtonStateThemeAlias["PRIMARY_DISABLED"] = "btn-state-primary-disabled";
+    /** clear */
+    ButtonStateThemeAlias["PRIMARY_CLEAR_NORMAL"] = "btn-state-primary-clear-normal";
+    ButtonStateThemeAlias["PRIMARY_CLEAR_DISABLED"] = "btn-state-primary-clear-disabled";
+    /** Large */
+    ButtonStateThemeAlias["PRIMARY_LARGE_NORMAL"] = "btn-state-primary-large-normal";
+    ButtonStateThemeAlias["PRIMARY_LARGE_DISABLED"] = "btn-state-primary-large-disabled";
+    /* Toggle */
+    ButtonStateThemeAlias["PRIMARY_TOGGLE_NORMAL"] = "btn-state-primary-toggle-normal";
+    ButtonStateThemeAlias["PRIMARY_TOGGLE_ACTIVE"] = "btn-state-primary-toggle-active";
+    ButtonStateThemeAlias["PRIMARY_TOGGLE_DISABLED"] = "btn-state-primary-toggle-disabled";
+    /* DatePicker */
+    ButtonStateThemeAlias["PRIMARY_NUMERIC_STEPPER_DECREMENT_NORMAL"] = "btn-numeric-stepper-decrement-normal";
+    ButtonStateThemeAlias["PRIMARY_NUMERIC_STEPPER_DECREMENT_DISABLED"] = "btn-numeric-stepper-decrement-disabled";
+    ButtonStateThemeAlias["PRIMARY_NUMERIC_STEPPER_INCREMENT_NORMAL"] = "btn-numeric-stepper-increment-normal";
+    ButtonStateThemeAlias["PRIMARY_NUMERIC_STEPPER_INCREMENT_DISABLED"] = "btn-numeric-stepper-increment-disabled";
+    ButtonStateThemeAlias["PRIMARY_NUMERIC_STEPPER_INDICATOR_NORMAL"] = "btn-numeric-stepper-indicator-normal";
+    ButtonStateThemeAlias["PRIMARY_NUMERIC_STEPPER_INDICATOR_DISABLED"] = "btn-numeric-stepper-indicator-disabled";
+    /* DatePicker */
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_DECREMENT_NORMAL"] = "btn-date-picker-decrement-normal";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_DECREMENT_ACTIVE"] = "btn-date-picker-decrement-active";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_DECREMENT_SELECTED"] = "btn-date-picker-decrement-selected";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_DECREMENT_DISABLED"] = "btn-date-picker-decrement-disabled";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INCREMENT_NORMAL"] = "btn-date-picker-increment-normal";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INCREMENT_ACTIVE"] = "btn-date-picker-increment-active";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INCREMENT_SELECTED"] = "btn-date-picker-increment-selected";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INCREMENT_DISABLED"] = "btn-date-picker-increment-disabled";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INDICATOR_NORMAL"] = "btn-date-picker-indicator-normal";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INDICATOR_ACTIVE"] = "btn-date-picker-indicator-active";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INDICATOR_SELECTED"] = "btn-date-picker-indicator-selected";
+    ButtonStateThemeAlias["PRIMARY_DATEPICKER_INDICATOR_DISABLED"] = "btn-date-picker-indicator-disabled";
+    /** Calendar */
+    ButtonStateThemeAlias["CALENDAR_DAY_NORMAL_NORMAL"] = "btn-calendar-day-normal-normal";
+    ButtonStateThemeAlias["CALENDAR_DAY_NORMAL_DISABLED"] = "btn-calendar-day-normal-disabled";
+    ButtonStateThemeAlias["CALENDAR_DAY_CURRENT_NORMAL"] = "btn-calendar-day-current-normal";
+    ButtonStateThemeAlias["CALENDAR_DAY_CURRENT_DISABLED"] = "btn-calendar-day-current-disabled";
+    ButtonStateThemeAlias["CALENDAR_DAY_SELECTED_NORMAL"] = "btn-calendar-day-selected-normal";
+    ButtonStateThemeAlias["CALENDAR_DAY_SELECTED_DISABLED"] = "btn-calendar-day-selected-disabled";
+    /** dialog */
+    ButtonStateThemeAlias["DIALOG_APPLY_NORMAL"] = "btn-dialog-apply-normal";
+    ButtonStateThemeAlias["DIALOG_APPLY_DISABLED"] = "btn-dialog-apply-disabled";
+    ButtonStateThemeAlias["DIALOG_CANCEL_NORMAL"] = "btn-dialog-cancel-normal";
+    ButtonStateThemeAlias["DIALOG_CANCEL_DISABLED"] = "btn-dialog-cancel-disabled";
+})(ButtonStateThemeAlias || (ButtonStateThemeAlias = {}));

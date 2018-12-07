@@ -1,0 +1,43 @@
+{
+  "name": "rn-squama",
+  "version": "0.0.1",
+  "description": "React Native UI Toolkit",
+  "keywords": [
+    "react-native",
+    "reactnative"
+  ],
+  "author": "Evgeny Grebennikov",
+  "license": "MIT",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "moment": "^2.22.2",
+    "rxjs": "^6.3.3"
+  },
+  "devDependencies": {
+    "@reactivex/rxjs": "^6.3.3",
+    "@types/node": "^10.12.10",
+    "@types/color": "^3.0.0",
+    "@types/jest": "^23.3.8",
+    "@types/lodash": "^4.14.118",
+    "@types/react": "^16.4.18",
+    "@types/react-native": "^0.57.7",
+    "@types/react-test-renderer": "^16.0.3",
+    "babel-jest": "23.6.0",
+    "babel-plugin-rewrite-require": "^1.14.5",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.48.2",
+    "react-native-typescript-transformer": "^1.2.10",
+    "react-test-renderer": "16.6.0-alpha.8af6728",
+    "react": "16.6.0-alpha.8af6728",
+    "react-native": "0.57.4",
+    "react-native-svg": "^8.0.8",
+    "react-native-svg-icon": "^0.8.1",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DjonnyX/rn-squama"
+  }
+}
