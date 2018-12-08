@@ -44,7 +44,7 @@ export declare class Controller<T> {
 declare function classDecorator<T extends {
     new (...args: any[]): {};
 }>(constructor: T): {
-    new (...args: {}): {
+    new (...args: any[]): {
         _context: string;
     };
 } & T;
