@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const Icon: (props: any) => JSX.Element;
+export declare const SvgIcon: (props: any) => JSX.Element;

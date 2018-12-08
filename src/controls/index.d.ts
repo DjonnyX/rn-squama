@@ -10,3 +10,4 @@ export * from "./date-picker";
 export * from "./overlay";
 export * from "./screen";
 export * from "./alert";
+export * from "./icons";

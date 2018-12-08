@@ -1,1 +1,1 @@
-export { Icon } from "./Icons";
+export { SvgIcon } from "./Icons";
