@@ -1,6 +1,5 @@
 export { Theme } from "./theme";
 export { StyleProvider } from "./provider";
-export { ThemeVars } from "./vars";
 export * from "./button";
 // export * from "./button-group";
 export * from "./toggle-button";

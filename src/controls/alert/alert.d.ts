@@ -38,7 +38,7 @@ export declare class Alert extends React.Component<IAlertProps> {
      * @param {IAlertInputProps} data
      * @returns {string}
      */
-    static show(data: IAlertInputProps): any;
+    static show(data: IAlertInputProps): string;
     /**
      * стили
      */

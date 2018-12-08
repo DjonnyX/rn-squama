@@ -1,7 +1,7 @@
 export * from "./button";
 export * from "./button-group";
 export * from "./toggle-button";
-export * from "./toggle-button";
+export * from "./popup";
 export * from "./header";
 export * from "./heading-view";
 export * from "./numeric-stepper";
@@ -10,3 +10,4 @@ export * from "./date-picker";
 export * from "./overlay";
 export * from "./screen";
 export * from "./alert";
+export * from "./icons";
