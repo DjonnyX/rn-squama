@@ -1,13 +1,16 @@
-import React from "react";
-import { View } from "react-native";
-import { StyleProvider, NumericStepperThemeAlias } from "../../theme";
-import { Button } from "../button";
-import _ from "lodash";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const theme_1 = require("../../theme");
+const button_1 = require("../button");
+const lodash_1 = require("lodash");
+const ALIAS = "NumericStepper";
 /**
  * @class
  * @author Evgeny Grebennikov
  */
-export class NumericStepper extends React.Component {
+class NumericStepper extends react_1.default.Component {
     /**
      * @constructor
      * @param {INumericStepperProps} props
@@ -81,10 +84,10 @@ export class NumericStepper extends React.Component {
      * @param {INumericStepperProps} props
      */
     updateStyles(props) {
-        let style = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let style = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!style)
-            style = StyleProvider.get(NumericStepperThemeAlias.PRIMARY); // Стиль по-умолчанию
-        this._styles = _.merge({}, props.style, style);
+            style = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, props.style, style);
     }
     /**
      * @protected
@@ -104,11 +107,10 @@ export class NumericStepper extends React.Component {
     render() {
         const { disabled } = this.state;
         const stateStyle = this.getStyleForState();
-        return (<View style={stateStyle.contentViewStyle}>
-        <Button text={this.props.decrementText} theme={stateStyle.decrementTheme} disabled={disabled} onPress={() => this.decrementHandler()}/>
-        <Button text={this.formatFunction(this.state.value)} theme={stateStyle.indicatorTheme} disabled={disabled} onPress={() => this.indicatorPressHandler()}></Button>
-        <Button text={this.props.incrementText} disabled={disabled} theme={stateStyle.incrementTheme} onPress={() => this.incrementHandler()}></Button>
-      </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: stateStyle.contentViewStyle },
+            react_1.default.createElement(button_1.Button, { text: this.props.decrementText, theme: stateStyle.decrementTheme, disabled: disabled, onPress: () => this.decrementHandler() }),
+            react_1.default.createElement(button_1.Button, { text: this.formatFunction(this.state.value), theme: stateStyle.indicatorTheme, disabled: disabled, onPress: () => this.indicatorPressHandler() }),
+            react_1.default.createElement(button_1.Button, { text: this.props.incrementText, disabled: disabled, theme: stateStyle.incrementTheme, onPress: () => this.incrementHandler() })));
     }
     /**
      * @react
@@ -123,6 +125,7 @@ export class NumericStepper extends React.Component {
         this._styles = null;
     }
 }
+NumericStepper.alias = ALIAS;
 /**
  * минимальное значение
  */
@@ -131,3 +134,4 @@ NumericStepper.MIN_VALUE = Number.MIN_VALUE;
  * Максимальное значение
  */
 NumericStepper.MAX_VALUE = Number.MAX_VALUE;
+exports.NumericStepper = NumericStepper;

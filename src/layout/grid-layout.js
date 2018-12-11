@@ -1,10 +1,12 @@
-import React from "react";
-import { View } from "react-native";
-import _ from "lodash";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const lodash_1 = require("lodash");
 /**
  * стиль контейнера
  */
-export const GRID_LIST_ROW_STYLE = {
+exports.GRID_LIST_ROW_STYLE = {
     alignItems: "stretch",
     flexDirection: "row",
     flex: 1
@@ -17,7 +19,7 @@ const defaultStyle = { flex: 1, flexDirection: "column", alignItems: "stretch" }
  * грид
  * @author Evgeny Grebennikov
  */
-export class GridLayout extends React.PureComponent {
+class GridLayout extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {IGridLayoutProps} props
@@ -43,7 +45,7 @@ export class GridLayout extends React.PureComponent {
         const emptyItemFactory = this.props.emptyItemFactory;
         const listCollection = this.props.listCollection;
         const columns = this.props.columns;
-        const style = _.merge(defaultStyle, this.props.style);
+        const style = lodash_1.default.merge(defaultStyle, this.props.style);
         const groups = [];
         // Тут нужно над оптимизацией подумать
         if (listCollection && listCollection.length > 0) {
@@ -77,12 +79,11 @@ export class GridLayout extends React.PureComponent {
             }
             ;
         }
-        return (<View style={style}>{groups.map((items, i) => {
-            return <View style={GRID_LIST_ROW_STYLE} key={i}>
-                        {items.map((item, j) => {
+        return (react_1.default.createElement(react_native_1.View, { style: style }, groups.map((items, i) => {
+            return react_1.default.createElement(react_native_1.View, { style: exports.GRID_LIST_ROW_STYLE, key: i }, items.map((item, j) => {
                 return this.itemRendererFactory(!item ? emptyItemFactory : itemFactory, item, j);
-            })}
-                    </View>;
-        })}</View>);
+            }));
+        })));
     }
 }
+exports.GridLayout = GridLayout;

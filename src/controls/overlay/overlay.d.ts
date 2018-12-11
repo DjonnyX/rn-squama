@@ -1,6 +1,5 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { OverlayThemeAlias } from "../../theme";
 /**
  * стили
  */
@@ -14,7 +13,7 @@ export interface IOverlayStyle {
 export interface IOverlayProps {
     id?: string;
     isModal?: boolean;
-    theme?: OverlayThemeAlias;
+    theme?: string;
     style?: IOverlayStyle;
     content?: JSX.Element | string;
     onClose?(id: string): void;
@@ -24,6 +23,7 @@ export interface IOverlayProps {
  * @author Evgeny Grebennikov
  */
 export declare class Overlay extends React.PureComponent<IOverlayProps> {
+    static alias: string;
     /**
      * стили
      */

@@ -1,23 +1,25 @@
-import React from "react";
-import { View, Text } from "react-native";
-import { Overlay } from "../overlay";
-import { popupManager, PopupOutlet } from "../popup";
-import { Button } from "../button";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const overlay_1 = require("../overlay");
+const popup_1 = require("../popup");
+const button_1 = require("../button");
 /**
  * @class
  * @author Evgeny Grebennikov
  */
-export class Alert extends React.Component {
+class Alert extends react_1.default.Component {
     /**
      * Отображает alert с заданными параметрами
      * @param {IAlertInputProps} data
      * @returns {string}
      */
     static show(data) {
-        return popupManager.show({
-            outlet: PopupOutlet.defaultName,
+        return popup_1.popupManager.show({
+            outlet: popup_1.PopupOutlet.defaultName,
             factory: (id, i) => {
-                return <Alert {...Object.assign({}, data, { id: id, key: i })}/>;
+                return react_1.default.createElement(Alert, Object.assign({}, Object.assign({}, data, { id: id, key: i })));
             }
         });
     }
@@ -67,10 +69,9 @@ export class Alert extends React.Component {
     bodyRenderer() {
         const { title } = this.props;
         const { message } = this.props;
-        return <View>
-            {title ? <Text>{title}</Text> : undefined}
-            {message ? <Text>{message}</Text> : undefined}
-        </View>;
+        return react_1.default.createElement(react_native_1.View, null,
+            title ? react_1.default.createElement(react_native_1.Text, null, title) : undefined,
+            message ? react_1.default.createElement(react_native_1.Text, null, message) : undefined);
     }
     /**
      * @react
@@ -78,12 +79,11 @@ export class Alert extends React.Component {
     render() {
         const { buttonCancelLabel } = this.props;
         const { buttonSuccessLabel } = this.props;
-        return (<Overlay id={this.props.id} key={this.props.key} isModal={this.props.isModal} theme={this._styles.overlayTheme} onClose={() => { this.onClose(); }} content={<View>
-                    {this.bodyRenderer()}
-                    <View>
-                        <Button text={buttonCancelLabel}/>
-                        <Button text={buttonSuccessLabel}/>
-                    </View>
-                </View>}/>);
+        return (react_1.default.createElement(overlay_1.Overlay, { id: this.props.id, key: this.props.key, isModal: this.props.isModal, theme: this._styles.overlayTheme, onClose: () => { this.onClose(); }, content: react_1.default.createElement(react_native_1.View, null,
+                this.bodyRenderer(),
+                react_1.default.createElement(react_native_1.View, null,
+                    react_1.default.createElement(button_1.Button, { text: buttonCancelLabel }),
+                    react_1.default.createElement(button_1.Button, { text: buttonSuccessLabel }))) }));
     }
 }
+exports.Alert = Alert;

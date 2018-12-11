@@ -1,12 +1,11 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { NumericStepperThemeAlias, ButtonThemeAlias } from "../../theme";
 /**
  * @react-props
  */
 export interface INumericStepperProps extends INumericStepperInputData {
     style?: INumericStepperStyles;
-    theme?: NumericStepperThemeAlias;
+    theme?: string;
     onIncrement?(value: number): void;
     onDecrement?(value: number): void;
     onIndicator?(): void;
@@ -26,15 +25,15 @@ export interface INumericStepperStyles {
     contentViewStyle?: ViewStyle;
     contentViewActiveStyle?: ViewStyle;
     contentViewSelectedStyle?: ViewStyle;
-    decrementTheme?: ButtonThemeAlias;
-    decrementActiveTheme?: ButtonThemeAlias;
-    decrementSelectedTheme?: ButtonThemeAlias;
-    incrementTheme?: ButtonThemeAlias;
-    incrementActiveTheme?: ButtonThemeAlias;
-    incrementSelectedTheme?: ButtonThemeAlias;
-    indicatorTheme?: ButtonThemeAlias;
-    indicatorActiveTheme?: ButtonThemeAlias;
-    indicatorSelectedTheme?: ButtonThemeAlias;
+    decrementTheme?: string;
+    decrementActiveTheme?: string;
+    decrementSelectedTheme?: string;
+    incrementTheme?: string;
+    incrementActiveTheme?: string;
+    incrementSelectedTheme?: string;
+    indicatorTheme?: string;
+    indicatorActiveTheme?: string;
+    indicatorSelectedTheme?: string;
 }
 /**
  * @interface
@@ -51,15 +50,16 @@ interface INumericStepperInputData {
  */
 interface INumericStepperStyle {
     contentViewStyle?: ViewStyle;
-    incrementTheme?: ButtonThemeAlias;
-    decrementTheme?: ButtonThemeAlias;
-    indicatorTheme?: ButtonThemeAlias;
+    incrementTheme?: string;
+    decrementTheme?: string;
+    indicatorTheme?: string;
 }
 /**
  * @class
  * @author Evgeny Grebennikov
  */
 export declare class NumericStepper extends React.Component<INumericStepperProps, INumericStepperState> {
+    static alias: string;
     /**
      * минимальное значение
      */

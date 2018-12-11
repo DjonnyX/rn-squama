@@ -1,6 +1,5 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { ButtonThemeAlias, ToggleButtonThemeAlias } from "../../theme";
 /**
  * @react-props
  */
@@ -17,7 +16,7 @@ export interface IButtonGroupProps {
 export interface IButtonGroupCollectionItem {
     key?: any;
     selected?: boolean;
-    theme?: ButtonThemeAlias | ToggleButtonThemeAlias;
+    theme?: string;
     text?: string;
 }
 /**
@@ -33,6 +32,7 @@ export declare enum ButtonGroupTypes {
  * @author Evgeny Grebennikov
  */
 export declare class ButtonGroup extends React.Component<IButtonGroupProps, any> {
+    static alias: string;
     /**
      * @protected
      */

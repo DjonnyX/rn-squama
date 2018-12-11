@@ -1,18 +1,30 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Провайдер стилей
  * Через него добавляются/удаляются/запрашиваются новые стили в тему
  * @singleton
  * @author Evgeny Grebennikov
  */
-export class StyleProvider {
-    static get(name) {
-        return StyleProvider._styleNames.get(name);
+class StyleProvider {
+    static get(alias, name) {
+        return StyleProvider._styleNames.get(`${alias}:${name}`);
     }
-    static add(name, style) {
-        StyleProvider._styleNames.set(name, style);
+    static default(controlClass, style) {
+        StyleProvider._styleNames.set(`${(controlClass).alias}:default`, style);
     }
-    static remove(name) {
-        StyleProvider._styleNames.delete(name);
+    static getDefault(alias) {
+        return StyleProvider._styleNames.get(`${alias}:default`);
+    }
+    static add(controlClass, name, style) {
+        StyleProvider._styleNames.set(StyleProvider.formatName(controlClass, name), style);
+    }
+    static remove(controlClass, name) {
+        StyleProvider._styleNames.delete(StyleProvider.formatName(controlClass, name));
+    }
+    static formatName(controlClass, name) {
+        return `${(controlClass).alias}:${name}`;
     }
 }
 StyleProvider._styleNames = new Map();
+exports.StyleProvider = StyleProvider;

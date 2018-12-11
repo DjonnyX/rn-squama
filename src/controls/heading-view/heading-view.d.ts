@@ -1,18 +1,17 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { HeadingViewThemeAlias, HeaderThemeAlias } from "../../theme";
 /**
  * стили
  */
 export interface IHeadingViewStyle {
-    headerStyleName?: HeaderThemeAlias;
+    headerStyleName?: string;
     viewStyle?: ViewStyle;
 }
 /**
  * @react-props
  */
 export interface IHeadingViewProps {
-    theme?: HeadingViewThemeAlias;
+    theme?: string;
     style?: IHeadingViewStyle;
     content?: JSX.Element;
     headerLeftItems?: JSX.Element | string;
@@ -24,6 +23,7 @@ export interface IHeadingViewProps {
  * @author Evgeny Grebennikov
  */
 export declare class HeadingView extends React.PureComponent<IHeadingViewProps> {
+    static alias: string;
     /**
      * стили
      */

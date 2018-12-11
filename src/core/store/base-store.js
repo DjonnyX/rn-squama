@@ -1,11 +1,13 @@
-import { Subject } from "rxjs";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const rxjs_1 = require("rxjs");
 /**
  * Концепция дата-хранилища.
  * Можно подписываться на изменения его сущностей, а также на изменение хранилища в целом.
  * К хранилищу можно привязать дочерние хранилища, тем самым организуя древовидную систему дата-хранилищ.
  * @author Evgeny Grebennikov
  */
-export class BaseStore {
+class BaseStore {
     /**
      * @constructor
      */
@@ -13,7 +15,7 @@ export class BaseStore {
         /**
          * @private
          */
-        this._$subject = new Subject();
+        this._$subject = new rxjs_1.Subject();
         this._locked = false;
     }
     /**
@@ -142,3 +144,4 @@ export class BaseStore {
         this._$subject = null;
     }
 }
+exports.BaseStore = BaseStore;

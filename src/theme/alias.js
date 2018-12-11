@@ -1,9 +1,0 @@
-export { ButtonThemeAlias } from './button/alias';
-export { ButtonStateThemeAlias } from './button/state-alias';
-export { ToggleButtonThemeAlias } from './toggle-button/alias';
-export { DatePickerThemeAlias } from './date-picker/alias';
-export { HeadingViewThemeAlias } from './heading-view/alias';
-export { NumericStepperThemeAlias } from './numeric-stepper/alias';
-export { OverlayThemeAlias } from './overlay/alias';
-export { ScreenThemeAlias } from './screen/alias';
-export { CalendarThemeAlias } from './calendar/alias';

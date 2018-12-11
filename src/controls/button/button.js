@@ -1,13 +1,16 @@
-import React from "react";
-import _ from "lodash";
-import { StyleProvider, ButtonThemeAlias, ButtonStateThemeAlias } from "../../theme";
-import { ButtonState } from "./button-state";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const lodash_1 = require("lodash");
+const theme_1 = require("../../theme");
+const button_state_1 = require("./button-state");
+const ALIAS = "Button";
 /**
  * Базовая кнопка
  * @class
  * @author Evgeny Grebennikov
  */
-export class Button extends React.PureComponent {
+class Button extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {IButtonProps} props
@@ -29,12 +32,12 @@ export class Button extends React.PureComponent {
      * @param {IButtonProps} props
      */
     updateStyles(props) {
-        let themeStyle = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let themeStyle = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!themeStyle)
-            themeStyle = StyleProvider.get(ButtonThemeAlias.PRIMARY); // Стиль по-умолчанию
-        const normalStyleName = themeStyle ? themeStyle.normalStyleName : ButtonStateThemeAlias.PRIMARY_NORMAL;
-        const disabledStyleName = themeStyle ? themeStyle.disabledStyleName : ButtonStateThemeAlias.PRIMARY_DISABLED;
-        this._styles = _.merge({}, {
+            themeStyle = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        const normalStyleName = themeStyle.normalStyleName;
+        const disabledStyleName = themeStyle.disabledStyleName;
+        this._styles = lodash_1.default.merge({}, {
             normalStyleName: normalStyleName,
             disabledStyleName: disabledStyleName
         }, props.style);
@@ -42,7 +45,7 @@ export class Button extends React.PureComponent {
     /**
      * @protected
      * @param {boolean} disabled
-     * @returns {ButtonStateThemeAlias}
+     * @returns {string}
      */
     getStyleNameForState(disabled) {
         return disabled ? this._styles.disabledStyleName : this._styles.normalStyleName;
@@ -59,7 +62,7 @@ export class Button extends React.PureComponent {
             attr.onPress = () => { this.props.onPress(); };
         if (!disabled && this.props.onLongPress !== null)
             attr.onLongPress = () => { this.props.onLongPress; };
-        return <ButtonState text={this.props.text} theme={stateStyleName} children={this.props.children} {...attr}></ButtonState>;
+        return react_1.default.createElement(button_state_1.ButtonState, Object.assign({ text: this.props.text, theme: stateStyleName, children: this.props.children }, attr));
     }
     /**
      * @react
@@ -74,3 +77,5 @@ export class Button extends React.PureComponent {
         this._styles = null;
     }
 }
+Button.alias = ALIAS;
+exports.Button = Button;

@@ -1,26 +1,32 @@
-import React from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
-import moment from "moment";
-import _ from "lodash";
-export * from "moment/locale/ru";
-import { StyleProvider, CalendarThemeAlias, ButtonThemeAlias, HeadingViewThemeAlias } from "../../theme";
-import { HeadingView } from "../heading-view";
-import { Button } from "../button";
-import { GridLayout } from "../../layout";
+"use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const moment_1 = require("moment");
+const lodash_1 = require("lodash");
+__export(require("moment/locale/ru"));
+const theme_1 = require("../../theme");
+const heading_view_1 = require("../heading-view");
+const button_1 = require("../button");
+const layout_1 = require("../../layout");
 /**
  * Массив названий дней недели
  */
-const WEEK_DAYS_NAMES = moment.weekdaysShort();
+const WEEK_DAYS_NAMES = moment_1.default.weekdaysShort();
 /**
  * Дефолтовое форматироваие заголовка
  */
 const DEFAULT_MONTH_HEADER_FORMAT = "MMMM YYYY";
+const ALIAS = "Calendar";
 /**
  * Календарь
  * @class
  * @author Evgeny Grebennikov
  */
-export class Calendar extends React.Component {
+class Calendar extends react_1.default.Component {
     /**
      * @constructor
      * @param {ICalendarProps} props
@@ -30,7 +36,7 @@ export class Calendar extends React.Component {
         /**
          * Массив названий дней недели
          */
-        this.weekDaysList = normalizeWeekDaysNames();
+        this.weekDaysList = exports.normalizeWeekDaysNames();
         /**
          * регион календаря
          */
@@ -43,9 +49,9 @@ export class Calendar extends React.Component {
             this._bound.height = this.props.height;
         const index = props.index || 0;
         const config = props.useRange ? props.rangeConfig : props.config;
-        const startDate = normalizeDate(config.startDate || new Date());
-        const endDate = normalizeDate(config.endDate || new Date());
-        const viewDate = moment(new Date(startDate.getFullYear(), startDate.getMonth(), 1)).add(index, "month").toDate();
+        const startDate = exports.normalizeDate(config.startDate || new Date());
+        const endDate = exports.normalizeDate(config.endDate || new Date());
+        const viewDate = moment_1.default(new Date(startDate.getFullYear(), startDate.getMonth(), 1)).add(index, "month").toDate();
         this.state = {
             startDate: startDate,
             endDate: endDate,
@@ -68,10 +74,10 @@ export class Calendar extends React.Component {
      * Обновление стилей
      */
     updateStyles(props) {
-        let themeStyle = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let themeStyle = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!themeStyle)
-            themeStyle = StyleProvider.get(CalendarThemeAlias.PRIMARY); // Стиль по-умолчанию
-        this._styles = _.merge({}, themeStyle, props.style, { containerStyle: this._bound });
+            themeStyle = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, themeStyle, props.style, { containerStyle: this._bound });
         const { index } = this.props;
         const { viewportsNum } = this.props;
         if (!viewportsNum || viewportsNum <= 1)
@@ -87,21 +93,21 @@ export class Calendar extends React.Component {
      */
     formatSelectedMonth() {
         const { viewDate } = this.state;
-        return moment(viewDate).format(this.props.monthHeaderFormat || DEFAULT_MONTH_HEADER_FORMAT);
+        return moment_1.default(viewDate).format(this.props.monthHeaderFormat || DEFAULT_MONTH_HEADER_FORMAT);
     }
     /**
      * @protected
      */
     toPrevMonth() {
         let { viewDate } = this.state;
-        this.setState(Object.assign({}, this.state, { viewDate: moment(viewDate).subtract(1, "month").toDate() }));
+        this.setState(Object.assign({}, this.state, { viewDate: moment_1.default(viewDate).subtract(1, "month").toDate() }));
     }
     /**
      * @protected
      */
     toNextMonth() {
         let { viewDate } = this.state;
-        this.setState(Object.assign({}, this.state, { viewDate: moment(viewDate).add(1, "month").toDate() }));
+        this.setState(Object.assign({}, this.state, { viewDate: moment_1.default(viewDate).add(1, "month").toDate() }));
     }
     /**
      * @protected
@@ -145,25 +151,24 @@ export class Calendar extends React.Component {
         const daysCollection = this.props.useRange
             ? getCalendarRangeDayCollection(viewDate, this.props.rangeConfig.minDate, this.props.rangeConfig.maxDate, startDate, endDate)
             : getCalendarDayCollection(viewDate, this.props.config.minDate, this.props.config.maxDate, startDate);
-        return (<TouchableWithoutFeedback>
-                <View style={this._styles.containerStyle}>
-                    <HeadingView theme={HeadingViewThemeAlias.PRIMARY_CLEAR} headerLeftItems={<Button theme={ButtonThemeAlias.PRIMARY_CLEAR} text=" < " onPress={() => { this.toPrevMonth(); }}></Button>} headerCenterItems={<Text style={this._styles.headerMonthStyle}>{this.formatSelectedMonth()}</Text>} headerRightItems={<Button theme={ButtonThemeAlias.PRIMARY_CLEAR} text=" > " onPress={() => { this.toNextMonth(); }}></Button>} content={<View style={this._styles.contentViewStyle}>
-                                <CalendarWeekDays collection={this.weekDaysList} style={this._styles.weekDaysStyles}></CalendarWeekDays>
-                                <GridLayout columns={WEEK_DAYS_NUM} listCollection={daysCollection} itemFactory={(d, i) => {
-            return <CalendarDay styles={this._styles.dayStyles} data={d} key={i} onSelect={(d) => this.selectDate(d)}></CalendarDay>;
-        }}></GridLayout>
-                            </View>}/>
-                </View>
-            </TouchableWithoutFeedback>);
+        return (react_1.default.createElement(react_native_1.TouchableWithoutFeedback, null,
+            react_1.default.createElement(react_native_1.View, { style: this._styles.containerStyle },
+                react_1.default.createElement(heading_view_1.HeadingView, { theme: this._styles.headerTheme, headerLeftItems: react_1.default.createElement(button_1.Button, { theme: this._styles.buttonPreviousTheme, text: " < ", onPress: () => { this.toPrevMonth(); } }), headerCenterItems: react_1.default.createElement(react_native_1.Text, { style: this._styles.headerMonthStyle }, this.formatSelectedMonth()), headerRightItems: react_1.default.createElement(button_1.Button, { theme: this._styles.buttonNextTheme, text: " > ", onPress: () => { this.toNextMonth(); } }), content: react_1.default.createElement(react_native_1.View, { style: this._styles.contentViewStyle },
+                        react_1.default.createElement(CalendarWeekDays, { collection: this.weekDaysList, style: this._styles.weekDaysStyles }),
+                        react_1.default.createElement(layout_1.GridLayout, { columns: WEEK_DAYS_NUM, listCollection: daysCollection, itemFactory: (d, i) => {
+                                return react_1.default.createElement(CalendarDay, { styles: this._styles.dayStyles, data: d, key: i, onSelect: (d) => this.selectDate(d) });
+                            } })) }))));
     }
 }
-export const normalizeWeekDaysNames = () => {
+Calendar.alias = ALIAS;
+exports.Calendar = Calendar;
+exports.normalizeWeekDaysNames = () => {
     let days = Array.from(WEEK_DAYS_NAMES);
     const st = days.splice(0, 1);
     days.push(st[0]);
     return days;
 };
-export const normalizeDate = (date) => {
+exports.normalizeDate = (date) => {
     const d = new Date(date);
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
 };
@@ -185,8 +190,8 @@ const WEEK_DAYS_NUM = 7;
  */
 const getCalendarRangeDayCollection = (view, minDate, maxDate, startDate, endDate) => {
     const days = [];
-    const daysInMonth = moment(view).daysInMonth();
-    const startOfMonth = moment(view).startOf("month");
+    const daysInMonth = moment_1.default(view).daysInMonth();
+    const startOfMonth = moment_1.default(view).startOf("month");
     const currentMonth = startOfMonth.month();
     const firstWeekDay = startOfMonth.day();
     const mint = minDate.getTime();
@@ -219,8 +224,8 @@ const getCalendarRangeDayCollection = (view, minDate, maxDate, startDate, endDat
  */
 const getCalendarDayCollection = (view, minDate, maxDate, startDate) => {
     const days = [];
-    const daysInMonth = moment(view).daysInMonth();
-    const startOfMonth = moment(view).startOf("month");
+    const daysInMonth = moment_1.default(view).daysInMonth();
+    const startOfMonth = moment_1.default(view).startOf("month");
     const currentMonth = startOfMonth.month();
     const firstWeekDay = startOfMonth.day();
     const mint = minDate.getTime();
@@ -256,7 +261,7 @@ var CalendarDateType;
  * @class
  * @author Evgeny Grebennikov
  */
-class CalendarDay extends React.PureComponent {
+class CalendarDay extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {ICalendarDayProps} props
@@ -278,11 +283,7 @@ class CalendarDay extends React.PureComponent {
      * @param {ICalendarDayProps} props
      */
     updateStyles(props) {
-        this._styles = _.merge({
-            normal: ButtonThemeAlias.CALENDAR_DAY_NORMAL,
-            current: ButtonThemeAlias.CALENDAR_DAY_CURRENT,
-            selected: ButtonThemeAlias.CALENDAR_DAY_SELECTED
-        }, props.styles);
+        this._styles = props.styles;
     }
     /**
      * @protected
@@ -293,7 +294,7 @@ class CalendarDay extends React.PureComponent {
     }
     /**
      * @param {CalendarDateType} type
-     * @returns {ButtonThemeAlias}
+     * @returns {string}
      */
     getTheme(type) {
         switch (type) {
@@ -314,16 +315,16 @@ class CalendarDay extends React.PureComponent {
     render() {
         const { data } = this.props;
         let theme = this.getTheme(data.type);
-        return (<Button theme={theme} disabled={data.disabled} text={String(data.date.getDate())} onPress={() => {
-            this.onSelect();
-        }}></Button>);
+        return (react_1.default.createElement(button_1.Button, { theme: theme, disabled: data.disabled, text: String(data.date.getDate()), onPress: () => {
+                this.onSelect();
+            } }));
     }
 }
 /**
  * @class
  * @author Evgeny Grebennikov
  */
-class CalendarWeekDays extends React.PureComponent {
+class CalendarWeekDays extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {ICalendarWeekDaysProps} props
@@ -352,12 +353,9 @@ class CalendarWeekDays extends React.PureComponent {
      * @react
      */
     render() {
-        return (<View style={this._styles.containerStyle}>
-            {this.props.collection.map((dayName, i) => {
-            return <View key={i} style={this._styles.dayContainerStyle}>
-                        <Text style={this._styles.dayTextStyle}>{dayName}</Text>
-                    </View>;
-        })}
-        </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: this._styles.containerStyle }, this.props.collection.map((dayName, i) => {
+            return react_1.default.createElement(react_native_1.View, { key: i, style: this._styles.dayContainerStyle },
+                react_1.default.createElement(react_native_1.Text, { style: this._styles.dayTextStyle }, dayName));
+        })));
     }
 }

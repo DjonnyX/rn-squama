@@ -1,1 +1,0 @@
-export { HeaderThemeAlias } from "./alias";

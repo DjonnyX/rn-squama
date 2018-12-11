@@ -1,11 +1,10 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { OverlayThemeAlias } from "../../theme";
 /**
  * стили
  */
 export interface IAlertStyles {
-    overlayTheme?: OverlayThemeAlias;
+    overlayTheme?: string;
     footerStyle?: ViewStyle;
     alertWidth?: number;
     alertHeight?: number;

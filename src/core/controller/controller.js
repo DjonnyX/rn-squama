@@ -1,10 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Базовый контроллер компонента.
  * По сути это гипертрофированный "reducer"
  * @generic
  * @author Evgeny Grebennikov
  */
-export class Controller {
+class Controller {
     /**
      * @constructor
      * @param {T} _context
@@ -49,6 +51,7 @@ export class Controller {
         this._context = null;
     }
 }
+exports.Controller = Controller;
 /**
  * @decorator
  * @param constructor
@@ -61,4 +64,4 @@ function classDecorator(constructor) {
         }
     };
 }
-export const ControllerDecorator = classDecorator;
+exports.ControllerDecorator = classDecorator;

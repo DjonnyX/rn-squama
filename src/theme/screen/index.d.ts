@@ -1,1 +1,0 @@
-export { ScreenThemeAlias } from "./alias";

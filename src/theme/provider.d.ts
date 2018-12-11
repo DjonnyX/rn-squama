@@ -6,7 +6,13 @@
  */
 export declare class StyleProvider {
     private static _styleNames;
-    static get(name: string | any): any;
-    static add(name: string | any, style: any): void;
-    static remove(name: string | any): void;
+    static get(alias: string, name: string): any;
+    static default(controlClass: IControlClass, style: any): void;
+    static getDefault(alias: string): any;
+    static add(controlClass: IControlClass, name: string, style: any): void;
+    static remove(controlClass: IControlClass, name: string): void;
+    private static formatName;
+}
+export interface IControlClass {
+    alias: string;
 }

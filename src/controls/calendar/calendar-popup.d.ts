@@ -1,14 +1,13 @@
 import React from "react";
 import { ViewStyle } from "react-native";
 import { ICalendarRangeData, ICalendarRangeConfig, ICalendarConfig } from "./calendar";
-import { CalendarThemeAlias, OverlayThemeAlias } from "../../theme";
 /**
  * стили
  */
 export interface ICalendarPopupStyles {
-    overlayTheme?: OverlayThemeAlias;
+    overlayTheme?: string;
     calendarContainerStyle?: ViewStyle;
-    calendarTheme?: CalendarThemeAlias;
+    calendarTheme?: string;
     calendarWidth?: number;
     calendarHeight?: number;
 }

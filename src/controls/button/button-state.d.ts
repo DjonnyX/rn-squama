@@ -1,6 +1,5 @@
 import React from "react";
 import { ViewStyle, TextStyle } from "react-native";
-import { ButtonStateThemeAlias } from "../../theme";
 /**
  * стили
  */
@@ -14,7 +13,7 @@ export interface IButtonStateStyle {
  * @react-props
  */
 export interface IButtonStateProps {
-    theme?: ButtonStateThemeAlias;
+    theme?: string;
     style?: IButtonStateStyle;
     text?: string;
     onPress?(): void;
@@ -27,6 +26,7 @@ export interface IButtonStateProps {
  * @author Evgeny Grebennikov
  */
 export declare class ButtonState extends React.PureComponent<IButtonStateProps> {
+    static alias: string;
     /**
      * стили
      */

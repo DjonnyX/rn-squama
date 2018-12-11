@@ -1,13 +1,16 @@
-import React from "react";
-import { View, TouchableWithoutFeedback } from "react-native";
-import { StyleProvider, OverlayThemeAlias } from "../../theme";
-import { popupManager } from "../popup";
-import _ from "lodash";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const theme_1 = require("../../theme");
+const popup_1 = require("../popup");
+const lodash_1 = require("lodash");
+const ALIAS = "Overlay";
 /**
  * Базовый попап-элемент
  * @author Evgeny Grebennikov
  */
-export class Overlay extends React.PureComponent {
+class Overlay extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {IOverlayProps} props
@@ -28,7 +31,7 @@ export class Overlay extends React.PureComponent {
      * Закрывает попап
      */
     close() {
-        popupManager.hide(this.props.id);
+        popup_1.popupManager.hide(this.props.id);
         if (this.props.onClose)
             this.props.onClose(this.props.id);
     }
@@ -37,10 +40,10 @@ export class Overlay extends React.PureComponent {
      * @param {IOverlayProps} props
      */
     updateStyles(props) {
-        let style = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let style = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!style)
-            style = StyleProvider.get(OverlayThemeAlias.PRIMARY); // Стиль по-умолчанию
-        this._styles = _.merge({}, style, props.style);
+            style = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, style, props.style);
     }
     /**
      * @param {GestureResponderEvent} e
@@ -53,12 +56,10 @@ export class Overlay extends React.PureComponent {
      * @react
      */
     render() {
-        return (<TouchableWithoutFeedback onPress={(event) => { this.outsidePressHandler(event); }}>
-                <View style={this._styles.overlayStyle}>
-                    <View style={this._styles.viewStyle}>
-                        {this.props.content}
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>);
+        return (react_1.default.createElement(react_native_1.TouchableWithoutFeedback, { onPress: (event) => { this.outsidePressHandler(event); } },
+            react_1.default.createElement(react_native_1.View, { style: this._styles.overlayStyle },
+                react_1.default.createElement(react_native_1.View, { style: this._styles.viewStyle }, this.props.content))));
     }
 }
+Overlay.alias = ALIAS;
+exports.Overlay = Overlay;

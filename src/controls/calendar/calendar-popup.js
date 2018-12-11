@@ -1,13 +1,15 @@
-import React from "react";
-import { View } from "react-native";
-import { Overlay } from "../overlay";
-import { Calendar } from "./calendar";
-import { popupManager } from "../popup";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const overlay_1 = require("../overlay");
+const calendar_1 = require("./calendar");
+const popup_1 = require("../popup");
 /**
  * @class
  * @author Evgeny Grebennikov
  */
-export class CalendarPopup extends React.Component {
+class CalendarPopup extends react_1.default.Component {
     /**
      * @constructor
      * @param {ICalendarPopupProps} props
@@ -54,7 +56,7 @@ export class CalendarPopup extends React.Component {
             this.setState(Object.assign({}, this.state, { startDate: data }, { newSelection: newSelection }));
         if ((this.props.autoComplete && this.props.useRange && !newSelection) || (this.props.autoComplete && !this.props.useRange)) {
             this.onComplete(data);
-            popupManager.hide(this.props.id);
+            popup_1.popupManager.hide(this.props.id);
             this.onClose();
         }
     }
@@ -66,11 +68,9 @@ export class CalendarPopup extends React.Component {
         const width = this._styles.calendarWidth * .5;
         const config = Object.assign({}, this.state);
         const viewportsNum = this._numViewports.length;
-        return <View style={this._styles.calendarContainerStyle}>
-            {this._numViewports.map((v, i) => {
-            return <Calendar key={i} index={i} newSelection={this.state.newSelection} integrate useRange={this.props.useRange} config={config} rangeConfig={config} width={width} height={this._styles.calendarHeight} viewportsNum={viewportsNum} onSelect={(data, newSelection) => { this.calendarChange(data, newSelection); }}/>;
-        })}
-        </View>;
+        return react_1.default.createElement(react_native_1.View, { style: this._styles.calendarContainerStyle }, this._numViewports.map((v, i) => {
+            return react_1.default.createElement(calendar_1.Calendar, { key: i, index: i, newSelection: this.state.newSelection, integrate: true, useRange: this.props.useRange, config: config, rangeConfig: config, width: width, height: this._styles.calendarHeight, viewportsNum: viewportsNum, onSelect: (data, newSelection) => { this.calendarChange(data, newSelection); } });
+        }));
     }
     /**
      * @protected
@@ -91,10 +91,11 @@ export class CalendarPopup extends React.Component {
      * @react
      */
     render() {
-        return (<Overlay id={this.props.id} key={this.props.key} isModal={this.props.isModal} theme={this._styles.overlayTheme} onClose={() => { this.onClose(); }} content={this.calendarRenderer()}/>);
+        return (react_1.default.createElement(overlay_1.Overlay, { id: this.props.id, key: this.props.key, isModal: this.props.isModal, theme: this._styles.overlayTheme, onClose: () => { this.onClose(); }, content: this.calendarRenderer() }));
     }
 }
 /**
  * дефолтовое зн-е количества вьюпортов
  */
 CalendarPopup.defaultNumViewports = 1;
+exports.CalendarPopup = CalendarPopup;

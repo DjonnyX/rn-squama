@@ -1,17 +1,20 @@
-import React from "react";
-import { View } from "react-native";
-import moment from "moment";
-import _ from "lodash";
-import { StyleProvider, DatePickerThemeAlias } from "../../theme";
-import { Button } from "../button";
-import { popupManager } from "../popup";
-import { normalizeDate, CalendarPopup } from "../calendar";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const moment_1 = require("moment");
+const lodash_1 = require("lodash");
+const theme_1 = require("../../theme");
+const button_1 = require("../button");
+const popup_1 = require("../popup");
+const calendar_1 = require("../calendar");
+const ALIAS = "DatePicker";
 /**
  * DatePicker
  * В модуле реализован Single и Range моды.
  * @author Evgeny Grebennikov
  */
-export class DatePicker extends React.Component {
+class DatePicker extends react_1.default.Component {
     /**
      * @constructor
      * @param {IDatePickerProps} props
@@ -34,14 +37,14 @@ export class DatePicker extends React.Component {
      * Минимальная дата выбора
      */
     get defaultMinDate() {
-        return normalizeDate(new Date());
+        return calendar_1.normalizeDate(new Date());
     }
     /**
      * Максимальная дата выбора
      * @getter
      */
     get defaultMaxDate() {
-        const date = normalizeDate(new Date());
+        const date = calendar_1.normalizeDate(new Date());
         date.setDate(date.getDate() + DatePicker.DEFAULT_MAX_DATE_LENGTH);
         return date;
     }
@@ -75,9 +78,10 @@ export class DatePicker extends React.Component {
     decrementHandler() {
         const { startDate } = this.state;
         const { minDate } = this.state;
-        if (startDate.getTime() <= minDate.getTime())
+        const s = moment_1.default(startDate).subtract(1, "days").toDate();
+        if (s.getTime() <= minDate.getTime())
             return;
-        this.state = Object.assign({}, this.state, { startDate: moment(startDate).subtract(1, "days").toDate() });
+        this.state = Object.assign({}, this.state, { startDate: s });
         this.setState(this.state);
         this.submitChanges();
     }
@@ -87,9 +91,10 @@ export class DatePicker extends React.Component {
     incrementHandler() {
         const { endDate } = this.state;
         const { maxDate } = this.state;
-        if (endDate.getTime() <= maxDate.getTime())
+        const e = moment_1.default(endDate).add(1, "days").toDate();
+        if (e.getTime() >= maxDate.getTime())
             return;
-        this.state = Object.assign({}, this.state, { endDate: moment(endDate).add(1, "days").toDate() });
+        this.state = Object.assign({}, this.state, { endDate: e });
         this.setState(this.state);
         this.submitChanges();
     }
@@ -130,10 +135,10 @@ export class DatePicker extends React.Component {
      * @protected
      */
     showCalendar() {
-        popupManager.show({
+        popup_1.popupManager.show({
             outlet: this.props.outlet,
             factory: (id, i) => {
-                return <CalendarPopup id={id} isModal autoComplete numViewports={2} useRange={this.props.useRange} config={this.props.config} rangeConfig={this.props.rangeConfig} style={this._styles.calendarPopupStyles} onComplete={(data) => { this.calendarChangeHandler(data); }} onClose={() => { this.calendarCloseHandler(); }} key={i}/>;
+                return react_1.default.createElement(calendar_1.CalendarPopup, { id: id, isModal: true, autoComplete: true, numViewports: 2, useRange: this.props.useRange, config: this.props.config, rangeConfig: this.props.rangeConfig, style: this._styles.calendarPopupStyles, onComplete: (data) => { this.calendarChangeHandler(data); }, onClose: () => { this.calendarCloseHandler(); }, key: i });
             }
         });
     }
@@ -143,17 +148,17 @@ export class DatePicker extends React.Component {
      * @returns {string}
      */
     formatDate(date) {
-        return moment(date).format("DD.MM.YY");
+        return moment_1.default(date).format("DD.MM.YY");
     }
     /**
      * Обновление стилей
      * @param {IDatePickerProps} props
      */
     updateStyles(props) {
-        let style = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let style = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!style)
-            style = StyleProvider.get(DatePickerThemeAlias.PRIMARY); // Стиль по-умолчанию
-        this._styles = _.merge({}, props.style, style);
+            style = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, props.style, style);
     }
     /**
      * @protected
@@ -198,17 +203,19 @@ export class DatePicker extends React.Component {
         const { disabled } = this.state;
         const dateStr = `${this.formatDate(startDate)} - ${this.formatDate(endDate)}`;
         const stateStyle = this.getStyleForState(opened, active, disabled);
-        return (<View style={this._styles.pickerContentViewStyle}>
-        <View style={stateStyle.contentViewStyle}>
-          <Button 
-        // disabled={startDate.getTime() <= minDate.getTime()}
-        text="<" theme={stateStyle.buttonDecrementTheme} onPress={() => this.decrementHandler()}/>
-          <Button text={dateStr} theme={stateStyle.buttonIndicatorTheme} onPress={() => this.openCalendarHandler()}></Button>
-          <Button 
-        // disabled={endDate.getTime() >= maxDate.getTime()}
-        text=">" theme={stateStyle.buttonIncrementTheme} onPress={() => this.incrementHandler()}></Button>
-        </View>
-      </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: this._styles.pickerContentViewStyle },
+            react_1.default.createElement(react_native_1.View, { style: stateStyle.contentViewStyle },
+                react_1.default.createElement(button_1.Button
+                // disabled={startDate.getTime() <= minDate.getTime()}
+                , { 
+                    // disabled={startDate.getTime() <= minDate.getTime()}
+                    text: "<", theme: stateStyle.buttonDecrementTheme, onPress: () => this.decrementHandler() }),
+                react_1.default.createElement(button_1.Button, { text: dateStr, theme: stateStyle.buttonIndicatorTheme, onPress: () => this.openCalendarHandler() }),
+                react_1.default.createElement(button_1.Button
+                // disabled={endDate.getTime() >= maxDate.getTime()}
+                , { 
+                    // disabled={endDate.getTime() >= maxDate.getTime()}
+                    text: ">", theme: stateStyle.buttonIncrementTheme, onPress: () => this.incrementHandler() }))));
     }
     /**
      * @react
@@ -224,7 +231,9 @@ export class DatePicker extends React.Component {
         this._styles = null;
     }
 }
+DatePicker.alias = ALIAS;
 /**
  * Кколичество доступных для выбора дней "вперед"
  */
 DatePicker.DEFAULT_MAX_DATE_LENGTH = 30;
+exports.DatePicker = DatePicker;

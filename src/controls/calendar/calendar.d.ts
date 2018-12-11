@@ -1,12 +1,14 @@
 import React from "react";
 import { ViewStyle, TextStyle } from "react-native";
 export * from "moment/locale/ru";
-import { CalendarThemeAlias, ButtonThemeAlias } from "../../theme";
 /**
  * стили
  */
 export interface ICalendarStyles {
     containerStyle?: ViewStyle;
+    headerTheme?: string;
+    buttonPreviousTheme?: string;
+    buttonNextTheme?: string;
     headerMonthStyle?: TextStyle;
     contentViewStyle?: ViewStyle;
     weekDaysStyles?: ICalendarWeekDaysStyles;
@@ -17,7 +19,7 @@ export interface ICalendarStyles {
  */
 export interface ICalendarProps {
     style?: ICalendarStyles;
-    theme?: CalendarThemeAlias;
+    theme?: string;
     useRange?: boolean;
     newSelection?: boolean;
     index?: number;
@@ -69,6 +71,7 @@ export interface ICalendarState {
  * @author Evgeny Grebennikov
  */
 export declare class Calendar extends React.Component<ICalendarProps, ICalendarState> {
+    static alias: string;
     /**
      * Массив названий дней недели
      */
@@ -133,9 +136,9 @@ export declare const normalizeDate: (date: Date) => Date;
  * @interface
  */
 interface ICalendarDayStyles {
-    normal?: ButtonThemeAlias;
-    current?: ButtonThemeAlias;
-    selected?: ButtonThemeAlias;
+    normal?: string;
+    current?: string;
+    selected?: string;
 }
 /**
  * @interface
