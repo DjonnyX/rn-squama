@@ -1,17 +1,16 @@
 import React from "react";
-import { ButtonThemeAlias, ButtonStateThemeAlias } from "../../theme";
 /**
  * стили
  */
 export interface IButtonStyle {
-    normalStyleName?: ButtonStateThemeAlias;
-    disabledStyleName?: ButtonStateThemeAlias;
+    normalStyleName?: string;
+    disabledStyleName?: string;
 }
 /**
  * @react-props
  */
 export interface IButtonProps {
-    theme?: ButtonThemeAlias;
+    theme?: string;
     style?: IButtonStyle;
     text?: string;
     disabled?: boolean;
@@ -25,6 +24,7 @@ export interface IButtonProps {
  * @author Evgeny Grebennikov
  */
 export declare class Button extends React.PureComponent<IButtonProps> {
+    static alias: string;
     /**
      * стили
      */
@@ -47,9 +47,9 @@ export declare class Button extends React.PureComponent<IButtonProps> {
     /**
      * @protected
      * @param {boolean} disabled
-     * @returns {ButtonStateThemeAlias}
+     * @returns {string}
      */
-    protected getStyleNameForState(disabled: boolean): ButtonStateThemeAlias;
+    protected getStyleNameForState(disabled: boolean): string;
     /**
      * @override
      * @returns {JSX.Element}

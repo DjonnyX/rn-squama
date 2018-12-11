@@ -1,1 +1,0 @@
-export { CalendarThemeAlias } from "./alias";

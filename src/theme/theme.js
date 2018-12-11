@@ -1,32 +1,21 @@
-import { StyleProvider } from './provider';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Тема оформления
  * @author Evgeny Grebennikov
  */
-export class Theme {
-    /**
-     * Возвращает стиль заданный псевдонимом
-     * @param {string | any} name
-     * @returns {any}
-     */
-    static getStyle(name) {
-        return StyleProvider.get(name);
-    }
+class Theme {
     /**
      * @constructor
      */
     constructor() {
-        this.buildButtonStates();
         this.buildStyles();
     }
-    /**
-     * Пребилд стилей для состояний кнопок
-     * @protected
-     */
-    buildButtonStates() { }
     /**
      * Пребилд стилей
      * @protected
      */
     buildStyles() { }
 }
+Theme.defaultStyleAlias = "default";
+exports.Theme = Theme;

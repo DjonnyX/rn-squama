@@ -2,10 +2,11 @@
  * @interface
  */
 interface IRequesterOptions {
-    rejectShortAttempts: number;
-    rejectLongAttempts: number;
-    rejectShortTimeout: number;
-    rejectLongTimeout: number;
+    rejectShortAttempts?: number;
+    rejectLongAttempts?: number;
+    rejectShortTimeout?: number;
+    rejectLongTimeout?: number;
+    updateTimeout?: number;
 }
 /**
  * Таймауты

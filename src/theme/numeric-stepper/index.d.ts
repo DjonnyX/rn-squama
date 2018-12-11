@@ -1,1 +1,0 @@
-export { NumericStepperThemeAlias } from "./alias";

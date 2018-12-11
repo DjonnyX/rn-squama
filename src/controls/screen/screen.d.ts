@@ -1,6 +1,5 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { ScreenThemeAlias } from "../../theme";
 /**
  * стили
  */
@@ -15,7 +14,7 @@ export interface IScreenProps {
     content?: JSX.Element;
     outlet?: string;
     style?: IScreenStyle;
-    theme?: ScreenThemeAlias;
+    theme?: string;
 }
 /**
  * @react-state
@@ -28,6 +27,7 @@ interface IScreenState {
  * @author Evgeny Grebennikov
  */
 export declare class Screen extends React.Component<IScreenProps, IScreenState> {
+    static alias: string;
     /**
      * стили
      */

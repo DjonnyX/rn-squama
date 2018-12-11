@@ -1,12 +1,15 @@
-import React from "react";
-import { View } from "react-native";
-import _ from "lodash";
-import { StyleProvider, HeaderThemeAlias } from "../../theme";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const lodash_1 = require("lodash");
+const theme_1 = require("../../theme");
+const ALIAS = "Header";
 /**
  * Базовая кнопка
  * @author Evgeny Grebennikov
  */
-export class Header extends React.PureComponent {
+class Header extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {IHeaderProps} props
@@ -28,21 +31,20 @@ export class Header extends React.PureComponent {
      * @param {IHeaderProps} props
      */
     updateStyles(props) {
-        let style = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let style = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!style)
-            style = StyleProvider.get(HeaderThemeAlias.PRIMARY); // Стиль по-умолчанию
-        this._styles = _.merge({}, style, props.style);
+            style = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, style, props.style);
     }
     /**
      * @override
      * @returns {JSX.Element}
      */
     render() {
-        return (<View style={this._styles.containerViewStyle}>
-            {this.props.leftItems ? <View style={this._styles.leftContainerStyle}>{this.props.leftItems}</View> : undefined}
-            {this.props.centerItems ? <View style={this._styles.centerContainerStyle}>{this.props.centerItems}</View> : undefined}
-            {this.props.rightItems ? <View style={this._styles.rightContainerStyle}>{this.props.rightItems}</View> : undefined}
-        </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: this._styles.containerViewStyle },
+            this.props.leftItems ? react_1.default.createElement(react_native_1.View, { style: this._styles.leftContainerStyle }, this.props.leftItems) : undefined,
+            this.props.centerItems ? react_1.default.createElement(react_native_1.View, { style: this._styles.centerContainerStyle }, this.props.centerItems) : undefined,
+            this.props.rightItems ? react_1.default.createElement(react_native_1.View, { style: this._styles.rightContainerStyle }, this.props.rightItems) : undefined));
     }
     /**
      * @react
@@ -58,3 +60,5 @@ export class Header extends React.PureComponent {
         this._styles = null;
     }
 }
+Header.alias = ALIAS;
+exports.Header = Header;

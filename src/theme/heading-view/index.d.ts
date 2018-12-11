@@ -1,1 +1,0 @@
-export { HeadingViewThemeAlias } from "./alias";

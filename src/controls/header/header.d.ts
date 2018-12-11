@@ -1,6 +1,5 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { HeaderThemeAlias } from "../../theme";
 /**
  * @interface
  */
@@ -14,7 +13,7 @@ export interface IHeaderStyle {
  * @interface
  */
 export interface IHeaderProps {
-    theme?: HeaderThemeAlias;
+    theme?: string;
     style?: IHeaderStyle;
     leftItems?: JSX.Element | string;
     centerItems?: JSX.Element | string;
@@ -25,6 +24,7 @@ export interface IHeaderProps {
  * @author Evgeny Grebennikov
  */
 export declare class Header extends React.PureComponent<IHeaderProps> {
+    static alias: string;
     /**
      * стили
      */

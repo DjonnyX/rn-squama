@@ -1,12 +1,14 @@
-import { Subject } from "rxjs";
-import _ from "lodash";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const rxjs_1 = require("rxjs");
+const lodash_1 = require("lodash");
 /**
  * Базовая сущность стора
  * На изменение сущности можно всегда подписаться
  * @generic
  * @author Evgeny Grebennikov
  */
-export class StoreEntity {
+class StoreEntity {
     /**
      * @constructor
      * @param {T} _state
@@ -16,7 +18,7 @@ export class StoreEntity {
         /**
          * @private
          */
-        this._subscriber = new Subject();
+        this._subscriber = new rxjs_1.Subject();
         this._options = options || StoreEntity.defaultOptions;
     }
     /**
@@ -39,7 +41,7 @@ export class StoreEntity {
             // нормализация
             const state = Object.assign({}, this._state, newState);
             // глубокое сравнение
-            if (!this._options.equal || !_.isEqual(this._state, state)) {
+            if (!this._options.equal || !lodash_1.default.isEqual(this._state, state)) {
                 this._state = state;
                 this._subscriber.next(this._state);
             }
@@ -73,3 +75,4 @@ export class StoreEntity {
 StoreEntity.defaultOptions = {
     equal: true
 };
+exports.StoreEntity = StoreEntity;

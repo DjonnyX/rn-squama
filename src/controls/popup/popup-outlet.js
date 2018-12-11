@@ -1,12 +1,14 @@
-import React from "react";
-import { View, Dimensions } from "react-native";
-import { popupManager } from "./popup-manager";
-import { PopupEventTypes } from "./popup-event-types";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const popup_manager_1 = require("./popup-manager");
+const popup_event_types_1 = require("./popup-event-types");
 /**
  * Точка монтажа попап-элементов
  * @final
  */
-export class PopupOutlet extends React.Component {
+class PopupOutlet extends react_1.default.Component {
     /**
      * @constructor
      * @param {IPopupOutletProps} props
@@ -24,12 +26,12 @@ export class PopupOutlet extends React.Component {
      */
     get name() { return this._name; }
     componentWillMount() {
-        this._subscription = popupManager.events.subscribe((e) => {
+        this._subscription = popup_manager_1.popupManager.events.subscribe((e) => {
             const outlet = e.outlet || PopupOutlet.defaultName;
             if (outlet === this._name) {
                 switch (e.type) {
-                    case PopupEventTypes.SHOW:
-                    case PopupEventTypes.HIDE:
+                    case popup_event_types_1.PopupEventTypes.SHOW:
+                    case popup_event_types_1.PopupEventTypes.HIDE:
                         const renderers = e.renderers;
                         if (renderers && renderers.length > 0) {
                             if (this.props.onActive)
@@ -54,22 +56,20 @@ export class PopupOutlet extends React.Component {
      */
     render() {
         const { renderers } = this.state;
-        const dimensions = Dimensions.get("window");
-        return (<View style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: dimensions.width,
-            height: dimensions.height,
-            justifyContent: "center",
-            alignItems: "center"
-        }}>
-                {renderers
+        const dimensions = react_native_1.Dimensions.get("window");
+        return (react_1.default.createElement(react_native_1.View, { style: {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: dimensions.width,
+                height: dimensions.height,
+                justifyContent: "center",
+                alignItems: "center"
+            } }, renderers
             ? renderers.map((v, i) => {
                 return v.factory(v.id, v.id);
             })
-            : undefined}
-            </View>);
+            : undefined));
     }
 }
 /**
@@ -77,3 +77,4 @@ export class PopupOutlet extends React.Component {
  * @static
  */
 PopupOutlet.defaultName = "root";
+exports.PopupOutlet = PopupOutlet;

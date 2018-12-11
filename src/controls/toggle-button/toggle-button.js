@@ -1,10 +1,13 @@
-import React from "react";
-import { StyleProvider, ToggleButtonThemeAlias, ButtonStateThemeAlias } from "../../theme";
-import { ButtonState } from "../button";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const theme_1 = require("../../theme");
+const button_1 = require("../button");
+const ALIAS = "ToggleButton";
 /**
  * @author Evgeny Grebennikov
  */
-export class ToggleButton extends React.Component {
+class ToggleButton extends react_1.default.Component {
     /**
      * @constructor
      * @param {IToggleButtonProps} props
@@ -33,12 +36,12 @@ export class ToggleButton extends React.Component {
      * @param {IToggleButtonProps} props
      */
     updateStyles(props) {
-        let themeStyle = this.props.theme ? StyleProvider.get(this.props.theme) : undefined;
+        let themeStyle = this.props.theme ? theme_1.StyleProvider.get(ALIAS, this.props.theme) : undefined;
         if (!themeStyle)
-            themeStyle = StyleProvider.get(ToggleButtonThemeAlias.PRIMARY); // Стиль по-умолчанию
-        const normalStyleName = themeStyle ? themeStyle.normalStyleName : ButtonStateThemeAlias.PRIMARY_TOGGLE_NORMAL;
-        const checkedStyleName = themeStyle ? themeStyle.checkedStyleName : ButtonStateThemeAlias.PRIMARY_TOGGLE_ACTIVE;
-        const disabledStyleName = themeStyle ? themeStyle.disabledStyleName : ButtonStateThemeAlias.PRIMARY_TOGGLE_DISABLED;
+            themeStyle = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        const normalStyleName = themeStyle.normalStyleName;
+        const checkedStyleName = themeStyle.checkedStyleName;
+        const disabledStyleName = themeStyle.disabledStyleName;
         this._styles = {
             normalStyleName: normalStyleName,
             checkedStyleName: checkedStyleName,
@@ -49,7 +52,7 @@ export class ToggleButton extends React.Component {
      * @protected
      * @param {boolean} checked
      * @param {boolean} disabled
-     * @returns {ButtonStateThemeAlias}
+     * @returns {string}
      */
     getStyleNameForState(checked, disabled) {
         if (disabled)
@@ -65,9 +68,7 @@ export class ToggleButton extends React.Component {
         const { checked } = this.state;
         const { disabled } = this.state;
         const stateStyleName = this.getStyleNameForState(checked, disabled);
-        return (<ButtonState text={this.props.text} theme={stateStyleName} onPress={() => this.baseButtonPressHandler()}>
-            {this.props.children}
-        </ButtonState>);
+        return (react_1.default.createElement(button_1.ButtonState, { text: this.props.text, theme: stateStyleName, onPress: () => this.baseButtonPressHandler() }, this.props.children));
     }
     /**
      * @protected
@@ -97,3 +98,5 @@ export class ToggleButton extends React.Component {
         this._styles = null;
     }
 }
+ToggleButton.alias = ALIAS;
+exports.ToggleButton = ToggleButton;

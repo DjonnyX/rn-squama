@@ -1,5 +1,7 @@
-import { Subject } from "rxjs";
-import { PopupEventTypes } from "./popup-event-types";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const rxjs_1 = require("rxjs");
+const popup_event_types_1 = require("./popup-event-types");
 /**
  * Менеджер попапов
  * @singleton
@@ -13,7 +15,7 @@ class PopupManager {
         /**
          * @private
          */
-        this._events = new Subject();
+        this._events = new rxjs_1.Subject();
         /**
          * Мэп всех текущих попап-компонентов по монтажным областям
          * @private
@@ -37,7 +39,7 @@ class PopupManager {
      */
     show(data) {
         const renderers = this.addComponent(data);
-        this.events.next({ type: PopupEventTypes.SHOW, outlet: data.outlet, renderers: renderers });
+        this.events.next({ type: popup_event_types_1.PopupEventTypes.SHOW, outlet: data.outlet, renderers: renderers });
         return String(this._currentPopupId);
     }
     /**
@@ -49,7 +51,7 @@ class PopupManager {
         if (!data)
             return;
         const renderers = this.removeComponent(data);
-        this.events.next({ type: PopupEventTypes.HIDE, outlet: data.outlet, renderers: renderers });
+        this.events.next({ type: popup_event_types_1.PopupEventTypes.HIDE, outlet: data.outlet, renderers: renderers });
     }
     /**
      * @param {IPopupData} data
@@ -88,4 +90,4 @@ class PopupManager {
 /**
  * Менеджер всплывающих объектов (попапов)
  */
-export const popupManager = new PopupManager();
+exports.popupManager = new PopupManager();

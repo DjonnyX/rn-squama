@@ -1,13 +1,16 @@
-import React from "react";
-import { View } from "react-native";
-import _ from "lodash";
-import { PopupOutlet } from "../popup";
-import { StyleProvider, ScreenThemeAlias } from "../../theme";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const lodash_1 = require("lodash");
+const popup_1 = require("../popup");
+const theme_1 = require("../../theme");
+const ALIAS = "Screen";
 /**
  * Скрин с монтажной областью для попапов
  * @author Evgeny Grebennikov
  */
-export class Screen extends React.Component {
+class Screen extends react_1.default.Component {
     /**
      * @constructor
      * @param props
@@ -39,23 +42,22 @@ export class Screen extends React.Component {
      * @param {IScreenProps} props
      */
     updateStyles(props) {
-        let style = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let style = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!style)
-            style = StyleProvider.get(ScreenThemeAlias.BASE); // Стиль по-умолчанию
-        this._styles = _.merge({}, style, props.style);
+            style = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, style, props.style);
     }
     /**
      * @react
      * @returns {JSX.Element}
      */
     render() {
-        const popupOutletName = this.props.outlet || PopupOutlet.defaultName;
+        const popupOutletName = this.props.outlet || popup_1.PopupOutlet.defaultName;
         const { isPopupActive } = this.state;
-        return (<View style={this._styles.containerStyle}>
-                <View pointerEvents={isPopupActive ? "none" : "auto"} style={this._styles.contentContainerStyle}>
-                    {this.props.content}
-                </View>
-                <PopupOutlet name={popupOutletName} onActive={() => { this.activeOutlet(true); }} onDeactive={() => { this.activeOutlet(false); }}></PopupOutlet>
-            </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: this._styles.containerStyle },
+            react_1.default.createElement(react_native_1.View, { pointerEvents: isPopupActive ? "none" : "auto", style: this._styles.contentContainerStyle }, this.props.content),
+            react_1.default.createElement(popup_1.PopupOutlet, { name: popupOutletName, onActive: () => { this.activeOutlet(true); }, onDeactive: () => { this.activeOutlet(false); } })));
     }
 }
+Screen.alias = ALIAS;
+exports.Screen = Screen;

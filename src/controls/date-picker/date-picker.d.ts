@@ -1,13 +1,12 @@
 import React from "react";
 import { ViewStyle } from "react-native";
-import { DatePickerThemeAlias, ButtonThemeAlias, OverlayThemeAlias } from "../../theme";
 import { ICalendarRangeData, ICalendarPopupStyles, ICalendarPopupInputData } from "../calendar";
 /**
  * @react-props
  */
 export interface IDatePickerProps extends IDatePickerInputData, ICalendarPopupInputData {
     style?: IDatePickerStyles;
-    theme?: DatePickerThemeAlias;
+    theme?: string;
     outlet?: string;
     onClose?(): void;
     onChange?(data: ICalendarRangeData): void;
@@ -25,19 +24,19 @@ export interface IDatePickerState extends IDatePickerInputData {
  * стили
  */
 export interface IDatePickerStyles {
-    overlayTheme?: OverlayThemeAlias;
+    overlayTheme?: string;
     pickerContentViewStyle?: ViewStyle;
     pickerContentViewActiveStyle?: ViewStyle;
     pickerContentViewSelectedStyle?: ViewStyle;
-    pickerButtonDecrementTheme?: ButtonThemeAlias;
-    pickerButtonDecrementActiveTheme?: ButtonThemeAlias;
-    pickerButtonDecrementSelectedTheme?: ButtonThemeAlias;
-    pickerButtonIncrementTheme?: ButtonThemeAlias;
-    pickerButtonIncrementActiveTheme?: ButtonThemeAlias;
-    pickerButtonIncrementSelectedTheme?: ButtonThemeAlias;
-    pickerIndicatorTheme?: ButtonThemeAlias;
-    pickerIndicatorActiveTheme?: ButtonThemeAlias;
-    pickerIndicatorSelectedTheme?: ButtonThemeAlias;
+    pickerButtonDecrementTheme?: string;
+    pickerButtonDecrementActiveTheme?: string;
+    pickerButtonDecrementSelectedTheme?: string;
+    pickerButtonIncrementTheme?: string;
+    pickerButtonIncrementActiveTheme?: string;
+    pickerButtonIncrementSelectedTheme?: string;
+    pickerIndicatorTheme?: string;
+    pickerIndicatorActiveTheme?: string;
+    pickerIndicatorSelectedTheme?: string;
     calendarPopupStyles?: ICalendarPopupStyles;
 }
 /**
@@ -53,9 +52,9 @@ interface IDatePickerInputData {
  */
 interface IPickerStyle {
     contentViewStyle?: ViewStyle;
-    buttonIncrementTheme?: ButtonThemeAlias;
-    buttonDecrementTheme?: ButtonThemeAlias;
-    buttonIndicatorTheme?: ButtonThemeAlias;
+    buttonIncrementTheme?: string;
+    buttonDecrementTheme?: string;
+    buttonIndicatorTheme?: string;
 }
 /**
  * DatePicker
@@ -63,6 +62,7 @@ interface IPickerStyle {
  * @author Evgeny Grebennikov
  */
 export declare class DatePicker extends React.Component<IDatePickerProps, IDatePickerState> {
+    static alias: string;
     /**
      * Кколичество доступных для выбора дней "вперед"
      */

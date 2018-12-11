@@ -1,1 +1,0 @@
-export { ToggleButtonThemeAlias } from "./alias";

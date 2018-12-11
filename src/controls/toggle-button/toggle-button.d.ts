@@ -1,18 +1,17 @@
 import React from "react";
-import { ToggleButtonThemeAlias, ButtonStateThemeAlias } from "../../theme";
 /**
  * Интерфейс стилей
  */
 export interface IToggleButtonStyle {
-    normalStyleName?: ButtonStateThemeAlias;
-    checkedStyleName?: ButtonStateThemeAlias;
-    disabledStyleName?: ButtonStateThemeAlias;
+    normalStyleName?: string;
+    checkedStyleName?: string;
+    disabledStyleName?: string;
 }
 /**
  * @react-props
  */
 export interface IToggleButtonProps {
-    theme?: ToggleButtonThemeAlias;
+    theme?: string;
     style?: IToggleButtonStyle;
     text?: string;
     checked?: boolean;
@@ -31,6 +30,7 @@ interface IToggleButtonState {
  * @author Evgeny Grebennikov
  */
 export declare class ToggleButton extends React.Component<IToggleButtonProps, IToggleButtonState> {
+    static alias: string;
     /**
      * стили
      */
@@ -56,9 +56,9 @@ export declare class ToggleButton extends React.Component<IToggleButtonProps, IT
      * @protected
      * @param {boolean} checked
      * @param {boolean} disabled
-     * @returns {ButtonStateThemeAlias}
+     * @returns {string}
      */
-    protected getStyleNameForState(checked: boolean, disabled: boolean): ButtonStateThemeAlias;
+    protected getStyleNameForState(checked: boolean, disabled: boolean): string;
     /**
      * @react
      */

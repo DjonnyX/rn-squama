@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -6,20 +7,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Таймауты
  */
-export var RequesterTimeout;
+var RequesterTimeout;
 (function (RequesterTimeout) {
     RequesterTimeout[RequesterTimeout["SHORT"] = 5000] = "SHORT";
     RequesterTimeout[RequesterTimeout["LONG"] = 60000] = "LONG";
     RequesterTimeout[RequesterTimeout["UPDATE"] = 60000] = "UPDATE";
-})(RequesterTimeout || (RequesterTimeout = {}));
+})(RequesterTimeout = exports.RequesterTimeout || (exports.RequesterTimeout = {}));
 /**
  * Реализует интерфейс анизотропных обновлений.
  * @author Evgeny Grebennikov
  */
-export class Request {
+class Request {
     /**
      * @constructor
      * @param {IRequesterOptions} options
@@ -58,6 +60,8 @@ export class Request {
                 this._rejectShortTimeout = options.rejectShortTimeout;
             if (options.hasOwnProperty("rejectLongTimeout"))
                 this._rejectLongTimeout = options.rejectLongTimeout;
+            if (options.hasOwnProperty("updateTimeout"))
+                this._updateTimeout = options.updateTimeout;
         }
     }
     /**
@@ -79,8 +83,12 @@ export class Request {
                     timeout = this._rejectLongTimeout;
                 else {
                     this._rejectAttempt = 0;
-                    timeout = this._updateTimeout;
+                    timeout = this._rejectShortTimeout;
                 }
+            }
+            else {
+                this._rejectAttempt = 0;
+                timeout = this._updateTimeout;
             }
             this._timer = setTimeout(() => {
                 this.run(factory, errorConditional);
@@ -112,3 +120,4 @@ Request.DEFAULT_SHORT_ATTEMPTS = 5;
  * @static
  */
 Request.DEFAULT_LONG_ATTEMPTS = 1;
+exports.Request = Request;

@@ -1,13 +1,16 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import _ from "lodash";
-import { StyleProvider, ButtonStateThemeAlias } from "../../theme";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const lodash_1 = require("lodash");
+const theme_1 = require("../../theme");
+const ALIAS = "ButtonState";
 /**
  * Базовая кнопка с одним состоянием
  * @class
  * @author Evgeny Grebennikov
  */
-export class ButtonState extends React.PureComponent {
+class ButtonState extends react_1.default.PureComponent {
     /**
      * @constructor
      * @param {IButtonStateProps} props
@@ -29,10 +32,10 @@ export class ButtonState extends React.PureComponent {
      * @param {IButtonStateProps} props
      */
     updateStyles(props) {
-        let style = props.theme ? StyleProvider.get(props.theme) : undefined;
+        let style = props.theme ? theme_1.StyleProvider.get(ALIAS, props.theme) : undefined;
         if (!style)
-            style = StyleProvider.get(ButtonStateThemeAlias.PRIMARY_NORMAL); // Стиль по-умолчанию
-        this._styles = _.merge({}, style, props.style);
+            style = theme_1.StyleProvider.getDefault(ALIAS); // Стиль по-умолчанию
+        this._styles = lodash_1.default.merge({}, style, props.style);
     }
     /**
      * @override
@@ -44,14 +47,13 @@ export class ButtonState extends React.PureComponent {
             attr.onPress = this.props.onPress;
         if (this.props.onLongPress)
             attr.onLongPress = this.props.onLongPress;
-        return (<View style={this._styles.containerViewStyle}>
-            <TouchableOpacity {...attr}>
-                <View style={this._styles.buttonStyle}>
-                    {this.props.text ? <Text allowFontScaling={false} style={this._styles.textStyle}>{this.props.text}{this.props.children}</Text> : undefined}
-                    {this.props.children ? this.props.children : undefined}
-                </View>
-            </TouchableOpacity>
-        </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: this._styles.containerViewStyle },
+            react_1.default.createElement(react_native_1.TouchableOpacity, Object.assign({}, attr),
+                react_1.default.createElement(react_native_1.View, { style: this._styles.buttonStyle },
+                    this.props.text ? react_1.default.createElement(react_native_1.Text, { allowFontScaling: false, style: this._styles.textStyle },
+                        this.props.text,
+                        this.props.children) : undefined,
+                    this.props.children ? this.props.children : undefined))));
     }
     /**
      * @react
@@ -66,3 +68,5 @@ export class ButtonState extends React.PureComponent {
         this._styles = null;
     }
 }
+ButtonState.alias = ALIAS;
+exports.ButtonState = ButtonState;

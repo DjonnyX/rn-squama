@@ -1,21 +1,24 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { ToggleButton } from "../toggle-button";
-import { Button } from "../button";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const react_1 = require("react");
+const react_native_1 = require("react-native");
+const toggle_button_1 = require("../toggle-button");
+const button_1 = require("../button");
 /**
  * типы используемых кнопок
  */
-export var ButtonGroupTypes;
+var ButtonGroupTypes;
 (function (ButtonGroupTypes) {
     ButtonGroupTypes[ButtonGroupTypes["SIMPLE"] = 0] = "SIMPLE";
     ButtonGroupTypes[ButtonGroupTypes["TOGGLE"] = 1] = "TOGGLE";
-})(ButtonGroupTypes || (ButtonGroupTypes = {}));
+})(ButtonGroupTypes = exports.ButtonGroupTypes || (exports.ButtonGroupTypes = {}));
+const ALIAS = "ButtonGroup";
 /**
  * ButtonGroup
  * @class
  * @author Evgeny Grebennikov
  */
-export class ButtonGroup extends React.Component {
+class ButtonGroup extends react_1.default.Component {
     /**
      * @constructor
      * @param {IButtonGroupProps} props
@@ -29,7 +32,7 @@ export class ButtonGroup extends React.Component {
         /**
          * дефолтовый стиль
          */
-        this._defaultStyle = StyleSheet.create({
+        this._defaultStyle = react_native_1.StyleSheet.create({
             viewStyle: {
                 justifyContent: "center",
                 alignSelf: "center",
@@ -79,9 +82,7 @@ export class ButtonGroup extends React.Component {
      */
     render() {
         const itemRendererType = this.props.itemRendererType;
-        return (<View style={this._defaultStyle.viewStyle}>
-            {this._collection.map((item, i) => (this.itemRendererFactory(itemRendererType, item, i)))}
-        </View>);
+        return (react_1.default.createElement(react_native_1.View, { style: this._defaultStyle.viewStyle }, this._collection.map((item, i) => (this.itemRendererFactory(itemRendererType, item, i)))));
     }
     /**
      * @protected
@@ -93,10 +94,10 @@ export class ButtonGroup extends React.Component {
     itemRendererFactory(instanceType, props, index) {
         switch (instanceType) {
             case ButtonGroupTypes.SIMPLE:
-                return <Button theme={props.theme} text={props.text} onPress={() => { this._select(index); }}></Button>;
+                return react_1.default.createElement(button_1.Button, { theme: props.theme, text: props.text, onPress: () => { this._select(index); } });
             case ButtonGroupTypes.TOGGLE:
                 const checked = this.state.selectedIndex === index;
-                return <ToggleButton key={index} checked={checked} theme={props.theme} text={props.text} onChange={(value) => { this._select(index); }}></ToggleButton>;
+                return react_1.default.createElement(toggle_button_1.ToggleButton, { key: index, checked: checked, theme: props.theme, text: props.text, onChange: (value) => { this._select(index); } });
             default:
                 return undefined;
         }
@@ -123,3 +124,5 @@ export class ButtonGroup extends React.Component {
         this._onChange = null;
     }
 }
+ButtonGroup.alias = ALIAS;
+exports.ButtonGroup = ButtonGroup;

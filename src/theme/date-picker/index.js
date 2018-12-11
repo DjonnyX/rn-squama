@@ -1,1 +1,0 @@
-export { DatePickerThemeAlias } from "./alias";
