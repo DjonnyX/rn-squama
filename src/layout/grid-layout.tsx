@@ -1,4 +1,22 @@
 import React from "react";
+<<<<<<< HEAD:src/layout/grid-layout.js
+import { View } from "react-native";
+import _ from "lodash";
+export const GRID_LIST_ROW_STYLE = {
+    alignItems: "stretch",
+    flexDirection: "row",
+    flex: 1
+};
+const defaultStyle = { flex: 1, flexDirection: "column", alignItems: "stretch" };
+export class GridLayout extends React.PureComponent {
+    constructor(props) {
+        super(props);
+    }
+    itemRendererFactory(factory, data, index) {
+        return factory ? factory(data, index) : undefined;
+    }
+    render() {
+=======
 import { View, ViewStyle } from "react-native";
 import _ from "lodash";
 
@@ -37,14 +55,17 @@ export class GridLayout extends React.PureComponent<IGridLayoutProps> {
     }
 
     public render(): JSX.Element {
+>>>>>>> master:src/layout/grid-layout.tsx
         const itemFactory = this.props.itemFactory;
         const emptyItemFactory = this.props.emptyItemFactory;
         const listCollection = this.props.listCollection;
         const columns = this.props.columns;
         const style = _.merge(defaultStyle, this.props.style);
+<<<<<<< HEAD:src/layout/grid-layout.js
+=======
 
+>>>>>>> master:src/layout/grid-layout.tsx
         const groups = [];
-        // Тут нужно над оптимизацией подумать
         if (listCollection && listCollection.length > 0) {
             let columnIndex = 0;
             let items = [];
@@ -63,10 +84,12 @@ export class GridLayout extends React.PureComponent<IGridLayoutProps> {
                     columnIndex = 1;
                 }
                 items.push(item);
+<<<<<<< HEAD:src/layout/grid-layout.js
+=======
 
                 // else нельзя использовать т.к. <code>columnIndex = 1;</code> в последней строке
+>>>>>>> master:src/layout/grid-layout.tsx
                 if (columnIndex <= columns) {
-                    // Добавляется пустая ячейка в конец массива, если это необходимо
                     const nextIndex = i + 1;
                     if (nextIndex === l) {
                         while (columnIndex + 1 <= columns) {
@@ -77,6 +100,15 @@ export class GridLayout extends React.PureComponent<IGridLayoutProps> {
                 }
             };
         }
+<<<<<<< HEAD:src/layout/grid-layout.js
+        return (React.createElement(View, { style: style }, groups.map((items, i) => {
+            return React.createElement(View, { style: GRID_LIST_ROW_STYLE, key: i }, items.map((item, j) => {
+                return this.itemRendererFactory(!item ? emptyItemFactory : itemFactory, item, j);
+            }));
+        })));
+    }
+}
+=======
         
         return (
             <View style={style}>{
@@ -93,3 +125,4 @@ export class GridLayout extends React.PureComponent<IGridLayoutProps> {
         )
     }
 }
+>>>>>>> master:src/layout/grid-layout.tsx
