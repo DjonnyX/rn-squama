@@ -3,7 +3,7 @@
     "target": "es2015",
     "module": "es2015",
     "lib": [
-      "es2015"
+      "es2015",
     ],
     "jsx": "react",
     "sourceMap": false,
@@ -15,6 +15,7 @@
       "react-native",
       "jest"
     ],
+    "removeComments": true,
     "moduleResolution": "node",
     "noImplicitAny": false,
     "strictNullChecks": false,
@@ -22,6 +23,6 @@
     "strictPropertyInitialization": false,
     "noImplicitThis": false,
     "alwaysStrict": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
   }
 }
