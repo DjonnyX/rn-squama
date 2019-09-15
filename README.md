@@ -1,7 +1,5 @@
 ## "React native Squama"
 
-![logo](https://user-images.githubusercontent.com/17039317/64926667-cc462d80-d808-11e9-9ba8-1001a4ac7a80.png)
-
 UI toolkit
 
 - Button
