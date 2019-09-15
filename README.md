@@ -1,6 +1,6 @@
-## "React native Squama"
+## "Squama"
 
-UI toolkit
+UI toolkit for react-native
 
 - Button
 - ToggleButton
