@@ -1,12 +1,12 @@
 {
   "name": "rn-squama",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React Native UI Toolkit",
   "keywords": [
     "react-native",
     "reactnative"
   ],
-  "author": "Evgeny Grebennikov",
+  "author": "Evgenii Grebennikov",
   "license": "MIT",
   "main": "index.js",
   "types": "index.d.ts",
