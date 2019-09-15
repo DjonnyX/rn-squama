@@ -7,150 +7,154 @@ import { Subject, Subscription } from "rxjs";
  * К хранилищу можно привязать дочерние хранилища, тем самым организуя древовидную систему дата-хранилищ.
  */
 export class BaseStore {
+  private _$subject = new Subject<any>();
 
-    private _$subject = new Subject<any>();
+  private _$entities: Array<StoreEntity<any>>;
 
-    private _$entities: Array<StoreEntity<any>>;
+  private _$children: Array<BaseStore>;
 
-    private _$children: Array<BaseStore>;
+  private _$childrenSubscriptions: Array<Subscription>;
 
-    private _$childrenSubscriptions: Array<Subscription>;
+  private _locked: boolean = false;
 
-    private _locked: boolean = false;
+  constructor() {}
 
-    constructor() { }
+  protected lock(): void {
+    this._locked = true;
+  }
 
-    protected lock(): void { this._locked = true; }
+  protected unlock(): void {
+    this._locked = false;
+  }
 
-    protected unlock(): void { this._locked = false; }
+  protected updateDirectly(): void {
+    this._$subject.next();
+  }
 
-    protected updateDirectly(): void { this._$subject.next(); }
+  /**
+   * Сброс всех значений на значения по-умолчанию.
+   * Все обновления проходят в "тихую", для этого конечным действием
+   * вызывается <code>this.updateDirectly()</code>, чтобы уполномочить
+   * хранилище об изменении.
+   */
+  public setDefault(silentOp?: () => void) {
+    this.lock();
 
-    /**
-     * Сброс всех значений на значения по-умолчанию.
-     * Все обновления проходят в "тихую", для этого конечным действием
-     * вызывается <code>this.updateDirectly()</code>, чтобы уполномочить
-     * хранилище об изменении.
-     */
-    public setDefault(silentOp?: () => void) {
-        this.lock();
-
-        // сбрасываются дочерние хранилища
-        if (this._$children) {
-            this._$children.forEach(child => {
-                child.setDefault();
-            });
-        }
-        if (silentOp) silentOp();
-
-        this.unlock();
-        this.updateDirectly();
+    // сбрасываются дочерние хранилища
+    if (this._$children) {
+      this._$children.forEach(child => {
+        child.setDefault();
+      });
     }
+    if (silentOp) silentOp();
 
-    /**
-     * Устанавливает сущности хранилища
-     */
-    protected setEntities(data: Array<StoreEntity<any>>): void {
-        if (this._$entities)
-            throw new Error('Сущности уже были привязаны к хранилещу');
+    this.unlock();
+    this.updateDirectly();
+  }
 
-        if (!data) return;
+  /**
+   * Устанавливает сущности хранилища
+   */
+  protected setEntities(data: Array<StoreEntity<any>>): void {
+    if (this._$entities)
+      throw new Error("Сущности уже были привязаны к хранилещу");
 
-        this._$entities = data;
+    if (!data) return;
 
-        this.subscribeToEntities();
-    }
+    this._$entities = data;
 
-    /**
-     * Устанавливает дочерние хранилища
-     */
-    protected setChildren(data: Array<BaseStore>): void {
-        if (this._$children)
-            throw new Error('Дочерние хранилеща уже были связанны с родительским');
+    this.subscribeToEntities();
+  }
 
-        if (!data) return;
+  /**
+   * Устанавливает дочерние хранилища
+   */
+  protected setChildren(data: Array<BaseStore>): void {
+    if (this._$children)
+      throw new Error("Дочерние хранилеща уже были связанны с родительским");
 
-        this._$children = data;
+    if (!data) return;
 
-        this.bindChildren();
-    }
+    this._$children = data;
 
-    /**
-     * Связывает дочерние хранилища
-     */
-    private bindChildren(): void {
-        this._$childrenSubscriptions = [];
+    this.bindChildren();
+  }
 
-        this._$children.forEach(child => {
-            this._$childrenSubscriptions.push(
-                child.subscribe((value) => {
-                    if (!this._locked) this._$subject.next(value);
-                })
-            );
-        });
-    }
+  /**
+   * Связывает дочерние хранилища
+   */
+  private bindChildren(): void {
+    this._$childrenSubscriptions = [];
 
-    /**
-     * Устанавливаются подписки на сущности хранилища
-     */
-    private subscribeToEntities(): void {
-
-        this._$entities.forEach(entity => {
-            entity.subscribe((value) => {
-                this._$subject.next();
-            })
-        });
-    }
-
-    /**
-     * Очистка сущностей
-     */
-    private disposeEntities(): void {
-        if (!this._$entities) return;
-
-        this._$entities.forEach(entity => {
-            entity.dispose();
-        });
-    }
-
-    /**
-     * Сносит подписки на дочерние хранилища
-     */
-    private disposeChildren(): void {
-        if (!this._$childrenSubscriptions) return;
-
-        this._$childrenSubscriptions.forEach(subscription => {
-            subscription.unsubscribe();
+    this._$children.forEach(child => {
+      this._$childrenSubscriptions.push(
+        child.subscribe(value => {
+          if (!this._locked) this._$subject.next(value);
         })
+      );
+    });
+  }
 
-        this.removeChildrenSubscriptions();
-    }
+  /**
+   * Устанавливаются подписки на сущности хранилища
+   */
+  private subscribeToEntities(): void {
+    this._$entities.forEach(entity => {
+      entity.subscribe(value => {
+        this._$subject.next();
+      });
+    });
+  }
 
-    /**
-     * Сносит подписки на дочерние хранилища
-     */
-    private removeChildrenSubscriptions(): void {
-        if (!this._$children) return;
+  /**
+   * Очистка сущностей
+   */
+  private disposeEntities(): void {
+    if (!this._$entities) return;
 
-        this._$children.forEach(child => {
-            child.dispose();
-        })
-    }
+    this._$entities.forEach(entity => {
+      entity.dispose();
+    });
+  }
 
-    /**
-     * Подписаться на изменение общего состояния хранилища
-     */
-    public subscribe(next?: (value: any) => void): Subscription {
-        return this._$subject.subscribe(next);
-    }
+  /**
+   * Сносит подписки на дочерние хранилища
+   */
+  private disposeChildren(): void {
+    if (!this._$childrenSubscriptions) return;
 
-    /**
-     * Очистка объекта хранилища.
-     * Вызывать перед полным удалением
-     */
-    public dispose(): void {
-        this.disposeEntities();
-        this.disposeChildren();
-        this._$subject = null;
-    }
+    this._$childrenSubscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+
+    this.removeChildrenSubscriptions();
+  }
+
+  /**
+   * Сносит подписки на дочерние хранилища
+   */
+  private removeChildrenSubscriptions(): void {
+    if (!this._$children) return;
+
+    this._$children.forEach(child => {
+      child.dispose();
+    });
+  }
+
+  /**
+   * Подписаться на изменение общего состояния хранилища
+   */
+  public subscribe(next?: (value: any) => void): Subscription {
+    return this._$subject.subscribe(next);
+  }
+
+  /**
+   * Очистка объекта хранилища.
+   * Вызывать перед полным удалением
+   */
+  public dispose(): void {
+    this.disposeEntities();
+    this.disposeChildren();
+    this._$subject = null;
+  }
 }

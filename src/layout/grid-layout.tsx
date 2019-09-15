@@ -77,7 +77,7 @@ export class GridLayout extends React.PureComponent<IGridLayoutProps> {
                 }
             };
         }
-        
+
         return (
             <View style={style}>{
                 groups.map((items, i) => {
