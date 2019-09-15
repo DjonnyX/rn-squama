@@ -1,20 +1,3 @@
-<<<<<<< HEAD:src/core/store/store-entity.js
-import { Subject } from "rxjs";
-import _ from "lodash";
-export class StoreEntity {
-    constructor(_state, options) {
-        this._state = _state;
-        this._subscriber = new Subject();
-        this._options = options || StoreEntity.defaultOptions;
-    }
-    get subscriber() {
-        return this._subscriber.asObservable();
-    }
-    updateDirectly() { this._subscriber.next(this._state); }
-    set(newState) {
-        if (newState) {
-            const state = Object.assign({}, this._state, newState);
-=======
 import { Subject, Subscription } from "rxjs";
 import _ from "lodash";
 
@@ -66,7 +49,6 @@ export class StoreEntity<T> {
             // нормализация
             const state = {...this._state as any, ...newState as any};
             // глубокое сравнение
->>>>>>> master:src/core/store/store-entity.ts
             if (!this._options.equal || !_.isEqual(this._state, state)) {
                 this._state = state;
                 this._subscriber.next(this._state);
@@ -74,22 +56,6 @@ export class StoreEntity<T> {
         }
         return this._state;
     }
-<<<<<<< HEAD:src/core/store/store-entity.js
-    get() {
-        return this._state;
-    }
-    subscribe(next) {
-        return this.subscriber.subscribe(next);
-    }
-    dispose() {
-        this._subscriber.unsubscribe();
-        this._subscriber = null;
-    }
-}
-StoreEntity.defaultOptions = {
-    equal: true
-};
-=======
 
     /**
      * Возвращает состояние
@@ -114,4 +80,3 @@ StoreEntity.defaultOptions = {
         this._subscriber = null;
     }
 }
->>>>>>> master:src/core/store/store-entity.ts

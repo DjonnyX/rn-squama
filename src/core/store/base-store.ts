@@ -1,16 +1,3 @@
-<<<<<<< HEAD:src/core/store/base-store.js
-import { Subject } from "rxjs";
-export class BaseStore {
-    constructor() {
-        this._$subject = new Subject();
-        this._locked = false;
-    }
-    lock() { this._locked = true; }
-    unlock() { this._locked = false; }
-    updateDirectly() { this._$subject.next(); }
-    setDefault(silentOp) {
-        this.lock();
-=======
 import { StoreEntity } from "./store-entity";
 import { Subject, Subscription } from "rxjs";
 
@@ -49,7 +36,6 @@ export class BaseStore {
         this.lock();
 
         // сбрасываются дочерние хранилища
->>>>>>> master:src/core/store/base-store.ts
         if (this._$children) {
             this._$children.forEach(child => {
                 child.setDefault();
@@ -60,15 +46,11 @@ export class BaseStore {
         this.unlock();
         this.updateDirectly();
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    setEntities(data) {
-=======
 
     /**
      * Устанавливает сущности хранилища
      */
     protected setEntities(data: Array<StoreEntity<any>>): void {
->>>>>>> master:src/core/store/base-store.ts
         if (this._$entities)
             throw new Error('Сущности уже были привязаны к хранилещу');
 
@@ -78,15 +60,11 @@ export class BaseStore {
 
         this.subscribeToEntities();
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    setChildren(data) {
-=======
 
     /**
      * Устанавливает дочерние хранилища
      */
     protected setChildren(data: Array<BaseStore>): void {
->>>>>>> master:src/core/store/base-store.ts
         if (this._$children)
             throw new Error('Дочерние хранилеща уже были связанны с родительским');
 
@@ -96,15 +74,11 @@ export class BaseStore {
 
         this.bindChildren();
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    bindChildren() {
-=======
 
     /**
      * Связывает дочерние хранилища
      */
     private bindChildren(): void {
->>>>>>> master:src/core/store/base-store.ts
         this._$childrenSubscriptions = [];
 
         this._$children.forEach(child => {
@@ -115,27 +89,18 @@ export class BaseStore {
             );
         });
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    subscribeToEntities() {
-=======
 
     /**
      * Устанавливаются подписки на сущности хранилища
      */
     private subscribeToEntities(): void {
 
->>>>>>> master:src/core/store/base-store.ts
         this._$entities.forEach(entity => {
-            entity.subscribe(_ => {
+            entity.subscribe((value) => {
                 this._$subject.next();
             })
         });
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    disposeEntities() {
-        if (!this._$entities)
-            return;
-=======
 
     /**
      * Очистка сущностей
@@ -143,16 +108,10 @@ export class BaseStore {
     private disposeEntities(): void {
         if (!this._$entities) return;
 
->>>>>>> master:src/core/store/base-store.ts
         this._$entities.forEach(entity => {
             entity.dispose();
         });
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    disposeChildren() {
-        if (!this._$childrenSubscriptions)
-            return;
-=======
 
     /**
      * Сносит подписки на дочерние хранилища
@@ -160,18 +119,12 @@ export class BaseStore {
     private disposeChildren(): void {
         if (!this._$childrenSubscriptions) return;
 
->>>>>>> master:src/core/store/base-store.ts
         this._$childrenSubscriptions.forEach(subscription => {
             subscription.unsubscribe();
         })
 
         this.removeChildrenSubscriptions();
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    removeChildrenSubscriptions() {
-        if (!this._$children)
-            return;
-=======
 
     /**
      * Сносит подписки на дочерние хранилища
@@ -179,17 +132,10 @@ export class BaseStore {
     private removeChildrenSubscriptions(): void {
         if (!this._$children) return;
 
->>>>>>> master:src/core/store/base-store.ts
         this._$children.forEach(child => {
             child.dispose();
         })
     }
-<<<<<<< HEAD:src/core/store/base-store.js
-    subscribe(next) {
-        return this._$subject.subscribe(next);
-    }
-    dispose() {
-=======
 
     /**
      * Подписаться на изменение общего состояния хранилища
@@ -203,13 +149,8 @@ export class BaseStore {
      * Вызывать перед полным удалением
      */
     public dispose(): void {
->>>>>>> master:src/core/store/base-store.ts
         this.disposeEntities();
         this.disposeChildren();
         this._$subject = null;
     }
-<<<<<<< HEAD:src/core/store/base-store.js
 }
-=======
-}
->>>>>>> master:src/core/store/base-store.ts
