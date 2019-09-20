@@ -56,10 +56,6 @@ export class CustomTheme extends Theme {
 }
 ```
 
-## Credits
-
-Developer - Eugene Grebennikov (@djonnyx)
-
 ## MIT License
 
 Copyright (c) 2019 djonnyx <djonnyx@gmail.com>
